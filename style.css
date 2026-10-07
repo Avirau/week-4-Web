@@ -1,0 +1,205 @@
+/* ==========================================================================
+   Vanilla JS Image Slider - Stylesheet
+   Sliding animation uses transform: translateX() on a flex track,
+   hardware-accelerated, inside an overflow:hidden viewport mask.
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #11161a;
+  color: #f1f1ef;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+}
+
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 4rem;
+}
+
+h1 {
+  font-size: 1.9rem;
+  margin: 0 0 0.35rem;
+}
+
+.subtitle {
+  margin: 0 0 2rem;
+  color: #b7bfc4;
+}
+
+/* ---------- Slider wrapper: fluid width, fixed aspect ratio ---------- */
+
+.slider {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;           /* viewport mask: hides every slide but one */
+  background: #000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* The viewport is the visible window; the track inside it is what moves */
+.slider-viewport {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Flex-aligned sliding track. JS toggles the transition property off
+   during the instant loop-reset jump, then back on for real moves. */
+.slider-track {
+  display: flex;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform: translateX(0);
+  transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: transform;
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+}
+
+/* Asset scaling: fill the frame without distortion or misaligned cropping */
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+.slide-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0.9rem 1.1rem 0.75rem;
+  font-size: 0.95rem;
+  color: #fff;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0));
+}
+
+/* ---------- Controls: Next / Previous arrows ---------- */
+
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(10, 14, 12, 0.45);
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.slider-arrow:hover,
+.slider-arrow:focus-visible {
+  background: rgba(47, 111, 94, 0.85);
+}
+
+.slider-arrow--prev {
+  left: 14px;
+}
+
+.slider-arrow--next {
+  right: 14px;
+}
+
+/* ---------- Indicator dots ---------- */
+
+.slider-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 9px;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 999px;
+}
+
+.slider-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.slider-dot:hover,
+.slider-dot:focus-visible {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.slider-dot.is-active {
+  background: #fff;
+  transform: scale(1.35);
+}
+
+/* ---------- Responsive breakpoints ---------- */
+
+@media (max-width: 640px) {
+  .page {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .slider-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+  }
+
+  .slide-caption {
+    font-size: 0.85rem;
+    padding: 0.7rem 0.85rem 0.6rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .slider-arrow--prev {
+    left: 8px;
+  }
+
+  .slider-arrow--next {
+    right: 8px;
+  }
+
+  .slider-dots {
+    bottom: 10px;
+    gap: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slider-track {
+    transition: none;
+  }
+}

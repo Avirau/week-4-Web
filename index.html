@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vanilla JS Image Slider | Wild Forest Gallery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="page">
+    <h1>Wild Forest Image Slider</h1>
+    <p class="subtitle">A modular, dependency-free slider built with vanilla JavaScript.</p>
+
+    <!-- ======================================================
+         Slider container (the "structural node" the JS hooks into)
+         Each <li class="slide"> is one real slide. slider.js clones
+         the first and last slide to build the infinite-loop effect,
+         so only the real slides belong in this markup.
+    ======================================================= -->
+    <section class="slider" id="forest-slider" aria-roledescription="carousel" aria-label="Wild forest photo slider">
+
+      <div class="slider-viewport">
+        <ul class="slider-track" id="sliderTrack">
+          <li class="slide">
+            <img src="images/forest-1.jpg" alt="Misty pine forest at dawn, sunlight breaking through the trees">
+            <p class="slide-caption">Misty pine forest at dawn</p>
+          </li>
+          <li class="slide">
+            <img src="images/forest-2.jpg" alt="Deep wild forest canopy at midday with light rays">
+            <p class="slide-caption">Deep wild forest at midday</p>
+          </li>
+          <li class="slide">
+            <img src="images/forest-3.jpg" alt="Narrow dirt path through an autumn forest">
+            <p class="slide-caption">Autumn forest path</p>
+          </li>
+          <li class="slide">
+            <img src="images/forest-4.jpg" alt="A quiet stream running through the wild forest">
+            <p class="slide-caption">Forest stream in the wild</p>
+          </li>
+          <li class="slide">
+            <img src="images/forest-5.jpg" alt="Dense evergreen wilderness under an overcast sky">
+            <p class="slide-caption">Dense evergreen wilderness</p>
+          </li>
+        </ul>
+      </div>
+
+      <button class="slider-arrow slider-arrow--prev" id="prevBtn" type="button" aria-label="Previous slide">&#10094;</button>
+      <button class="slider-arrow slider-arrow--next" id="nextBtn" type="button" aria-label="Next slide">&#10095;</button>
+
+      <!-- Indicator dots are generated dynamically by slider.js -->
+      <div class="slider-dots" id="sliderDots" aria-label="Choose slide"></div>
+
+    </section>
+  </main>
+
+  <script src="slider.js"></script>
+</body>
+</html>
